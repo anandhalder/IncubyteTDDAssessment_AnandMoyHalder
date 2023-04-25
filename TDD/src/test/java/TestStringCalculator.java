@@ -20,4 +20,10 @@ public class TestStringCalculator {
 		StringCalculator obj = new StringCalculator();
 		Assert.assertEquals(10, obj.add("1,2,3,4"));
 	}
+
+	@Test
+	public void testStringCalculatorWithNewLineCharacter() {
+		StringCalculator obj = new StringCalculator();
+		Assert.assertEquals(5,obj.add("1\gn2,3"));
+	}
 }
