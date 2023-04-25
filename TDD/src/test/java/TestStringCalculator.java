@@ -24,6 +24,6 @@ public class TestStringCalculator {
 	@Test
 	public void testStringCalculatorWithNewLineCharacter() {
 		StringCalculator obj = new StringCalculator();
-		Assert.assertEquals(5,obj.add("1\gn2,3"));
+		Assert.assertEquals(6,obj.add("1\n2,3"));
 	}
 }

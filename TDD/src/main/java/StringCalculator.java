@@ -1,17 +1,26 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StringCalculator {
+
+	private static final String delimiter = ",";
 
 	int add(String numbers) {
 		if (numbers.isEmpty()) {
 			return 0;
 		}
 
-		// If we are assuming only "," as a delimiters.
-		String[] str = numbers.split(",");
+		String[] tokens = numbers.split("[,\n" + delimiter + "]");
 		int sum = 0;
+		List<Integer> negatives = new ArrayList<>();
 
-		for (String s: str) {
-			sum += Integer.parseInt(s);
+		for (String token : tokens) {
+			int num = Integer.parseInt(token);
+			if (num < 0) {
+				negatives.add(num);
+			}
+			sum += num;
 		}
 
 		return sum;
