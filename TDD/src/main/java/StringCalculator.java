@@ -1,14 +1,19 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StringCalculator {
 
-	private static final String delimiter = ",";
+	private static final String default_delimiter = ",";
 
 	int add(String numbers) {
 		if (numbers.isEmpty()) {
 			return 0;
+		}
+
+		String delimiter = default_delimiter;
+		if (numbers.startsWith("//")) {
+			delimiter = numbers.substring(2, 3);
+			numbers = numbers.substring(4);
 		}
 
 		String[] tokens = numbers.split("[,\n" + delimiter + "]");

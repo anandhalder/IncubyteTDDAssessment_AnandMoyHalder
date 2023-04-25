@@ -26,4 +26,10 @@ public class TestStringCalculator {
 		StringCalculator obj = new StringCalculator();
 		Assert.assertEquals(6,obj.add("1\n2,3"));
 	}
+
+	@Test
+	public void testStringCalculatorWithDifferentDelimiter() {
+		StringCalculator obj = new StringCalculator();
+		Assert.assertEquals(3, obj.add("//;\n1;2"));
+	}
 }
