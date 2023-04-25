@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
 
@@ -26,6 +27,11 @@ public class StringCalculator {
 				negatives.add(num);
 			}
 			sum += num;
+		}
+
+		if (!negatives.isEmpty()) {
+			String msg = "negatives not allowed: " + negatives.stream().map(Object::toString).collect(Collectors.joining(", "));
+			throw new IllegalArgumentException(msg);
 		}
 
 		return sum;
