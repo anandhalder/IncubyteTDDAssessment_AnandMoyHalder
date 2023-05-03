@@ -1,25 +1,47 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
 
-	int add(String numbers) {
+	int calculation(String numbers) {
 
 		String delimiter = getDelimiter(numbers);
 		numbers =  removeDelimiterSpecifier(numbers);
+
+		// Removing the new Line.
+		numbers = numbers.replace('\n', ',');
+
+		// Whatever the Delimiter will, it will always be converted into ",".
+		if (!delimiter.equals(",")) {
+			numbers = numbers.replaceAll("\\".concat(delimiter), ",");
+		}
 
 		if (numbers.isEmpty()) {
 			return 0;
 		}
 
-		List<Integer> parsedNumbers = Arrays.stream(numbers.split(delimiter)).map(Integer::parseInt).collect(Collectors.toList());
+		// delimiter in the string must be ",".
+		List<Integer> parsedNumbers = Arrays.stream(numbers.split(",")).map(Integer::parseInt).collect(Collectors.toList());
 
 		// Checking of Negative Numbers.
 		checkForNegativeNumbers(parsedNumbers);
 
+
+		// Operation Logic
+		if (delimiter.equals("*")) {
+			return Multiple(numbers, delimiter);
+		} else {
+			return Add(numbers, delimiter);
+		}
+	}
+
+	static int Add(String numbers, String delimiter) {
+
 		int sum = 0;
+
 		for (String s: numbers.split("[,\n" + delimiter + "]")) {
 			sum += Integer.parseInt(s);
 		}
@@ -27,11 +49,24 @@ public class StringCalculator {
 		return sum;
 	}
 
+	static int Multiple(String numbers, String delimiter) {
+
+		int mul = 1;
+
+		for (String s: numbers.split("[,\n" + delimiter + "]")) {
+			mul *= Integer.parseInt(s);
+		}
+
+		return mul;
+	}
+
 	private String getDelimiter(String numbers) {
-		String delimiter = ",";
+			String delimiter = ",";
+
 		if (numbers.startsWith("//")) {
 			delimiter = numbers.substring(2, 3);
 		}
+
 		return delimiter;
 	}
 
